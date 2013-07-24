@@ -114,4 +114,34 @@ Inherit the [catkin bbclass](https://github.com/bmwcarit/meta-ros/blob/master/cl
 
 ## Cross-compiling
 
+Now let's cross-compile the ROS package through the recipe we just created (it can be found in the recipes/beginner-tutorials/ directory of this repository).
+
+* Set up an Angstrom distribution in your embedded platform. Some basic instructions about how to do to accomplish this are given at the `README.md`
+of https://github.com/vmayoral/beagle-ros.
+
+* `git clone` this respository (https://github.com/vmayoral/diving-meta-ros) in some place such as `/tmp`
+
+* Add `recipes/*` to the `meta-ros/recipes-ros/`: `cp -r /path/to/diving-meta-ros/recipes/* /path/to/meta-ros/recipes-ros/`. This step adds the recipe required to cross-compile this code inside of the meta-ros code structure.
+
+* Cross-compile the recipe: `bitbake beginner_tutorials` to create an ipkg of the ROS package.
+
+* Test the package built. Copy `/path/to/the/package/beginner_tutorials*.ipkg` to your embedded platform and install it using `opkg install beginner_tutorials*.ipkg`
+
+* Run the package using `rosrun beginner_tutorials talker.py` or `rosrun beginner_tutorials listerner.py`
+
+## How to replicate
+
+* Create a ROS package the usual way (`catkin_create_pkg`). Check [this](http://www.ros.org/wiki/ROS/Tutorials/CreatingPackage) tutorial if you're not familiar.
+
+* Edit the CMakeLists so that it'll deploy files according to your needs (check http://ros.org/wiki/catkin/CMakeLists.txt).
+
+* ( **Optional** ) Upload the code of the package to a github repository.
+
+* Create a bitbake recipe such as the one provided for this example available at `recipes/beginner-tutorials/beginner-tutorials_git.bb`.
+
+* Put the recipe in the meta-ros file structure (check **cross-compiling** step to find an example).
+
+* cross-compile and install the package. 
+
+
 
